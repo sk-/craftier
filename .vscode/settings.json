@@ -1,0 +1,4 @@
+{
+  "python.pythonPath": "~/.virtualenvs/craftier2/bin/python",
+  "python.linting.pylintEnabled": true
+}

@@ -1,0 +1,9 @@
+[flake8]
+# F722 was fixed in https://github.com/PyCQA/pyflakes/pull/580 but hasn't been
+# release yet
+# E and W are docstyle error, which we are handling separately.
+# C are Mccabe errors
+# N are naming conventions, but we are using pylint.
+# See https://flake8.pycqa.org/en/2.6.0/warnings.html
+ignore = F722,E,W,C,N
+exclude = .git,__pycache__,docs/,old,build,dist
