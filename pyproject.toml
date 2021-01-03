@@ -1,0 +1,72 @@
+[tool.poetry]
+name = "craftier"
+version = "0.1.0"
+description = ""
+authors = ["Sebastian Kreft"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/sk-/craftier"
+keywords = [
+  "refactor",
+  "lint",
+  "codemod",
+  "idiom",
+  "anti-pattern",
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+libcst = "^0.3.15"
+typing_extensions = "^3.7.4"
+click = "^7.1.2"
+click_pathlib = "^2020.3.13"
+loguru = "^0.5.3"
+
+[tool.poetry.dev-dependencies]
+black = "^20.8b1"
+isort = "^5.6.4"
+mypy = "^0.790"
+parameterized = "^0.7.4"
+pylint = "^2.6.0"
+coverage = "^5.3"
+taskipy = "^1.5.1"
+pydocstyle = "^5.1.1"
+flake8 = "^3.8.4"
+pyfakefs = "^4.3.2"
+flake8-pyi = "^20.10.0"
+
+[tool.poetry.scripts]
+craftier = "craftier.cli:app"
+
+[tool.black]
+line-length = 80
+
+[tool.isort]
+profile = "black"
+line_length = 80
+src_paths = ["craftier", "tests"]
+
+[tool.taskipy.tasks]
+format = "black . && isort ."
+lint = "task check:docstring && task check:flake8 && task check:pylint"
+test = "python -m unittest"
+coverage = "coverage run --source=craftier --omit 'craftier/refactors/*' -m unittest && coverage report --show-missing --skip-empty"
+types = "mypy ."
+"check:docstring" = "pydocstyle craftier"
+"check:flake8" = "flake8"
+"check:pylint" = "pylint craftier tests"
+"check:black" = "black --check ."
+"check:isort" = "isort --check ."
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
